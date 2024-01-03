@@ -6,7 +6,7 @@
     app:startDestination="@id/displayNotesFragment">
     <fragment
         android:id="@+id/displayNotesFragment"
-        android:name="com.aayushi.notepad.DisplayNotesFragment"
+        android:name="com.aayushi.notepad.fragment.DisplayNotesFragment"
         android:label="fragment_display_notes"
         tools:layout="@layout/fragment_display_notes" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.aayushi.notepad.AddFragment"
+        android:name="com.aayushi.notepad.fragment.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/editNoteFragment"
-        android:name="com.aayushi.notepad.EditNoteFragment"
+        android:name="com.aayushi.notepad.fragment.EditNoteFragment"
         android:label="fragment_edit_note"
         tools:layout="@layout/fragment_edit_note" />
 
