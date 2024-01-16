@@ -13,6 +13,7 @@ import com.aayushi.notepad.R
 import com.aayushi.notepad.databinding.FragmentDisplayNotesBinding
 
 class DisplayNotesFragment : Fragment() {
+
     lateinit var binding: FragmentDisplayNotesBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
