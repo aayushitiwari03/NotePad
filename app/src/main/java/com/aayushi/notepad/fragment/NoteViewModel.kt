@@ -54,7 +54,8 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
      fun deleteNotes(notes: Notes){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                noteRepository.deleteNote (notes)
+                noteRepository.deleteNote(notes)
+                _notes.value = _notes.value - notes
             }catch (e:Exception){
                 e.printStackTrace()
             }

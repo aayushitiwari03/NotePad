@@ -17,6 +17,7 @@ import com.aayushi.notepad.R
 import com.aayushi.notepad.adapter.NotesAdapter
 import com.aayushi.notepad.databinding.FragmentDisplayNotesBinding
 import com.aayushi.notepad.rdb.NoteDataBase
+import com.aayushi.notepad.rdb.Notes
 import com.aayushi.notepad.repo.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -56,13 +57,21 @@ class DisplayNotesFragment : Fragment() {
 
         lifecycleScope.launch {
             noteViewModel.notes.collect {
-                adapter = NotesAdapter(it)
+                adapter = NotesAdapter(it) { note ->
+                    deleteNotes(note)
+                }
                 binding.recyclerView.adapter = adapter
             }
         }
 
-
         return binding.root
+    }
+
+    private fun deleteNotes(note: Notes) {
+        CoroutineScope(Dispatchers.IO).launch {
+            noteViewModel.deleteNotes(note)
+
+        }
     }
 
 }
