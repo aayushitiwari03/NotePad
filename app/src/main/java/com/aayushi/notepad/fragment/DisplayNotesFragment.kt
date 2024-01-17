@@ -57,14 +57,21 @@ class DisplayNotesFragment : Fragment() {
 
         lifecycleScope.launch {
             noteViewModel.notes.collect {
-                adapter = NotesAdapter(it) { note ->
-                    deleteNotes(note)
-                }
+                adapter = NotesAdapter(
+                    it,
+                    onDeleteClickListener = { note -> deleteNotes(note) },
+                    onUpdateClickListener = { note -> navigateToUpdateFragment(note) }
+                )
                 binding.recyclerView.adapter = adapter
             }
         }
 
         return binding.root
+    }
+
+    private fun navigateToUpdateFragment(note: Notes) {
+        (activity as MainActivity).findNavController(R.id.nav_host_graph)
+            .navigate(R.id.action_displayNotesFragment_to_editNoteFragment)
     }
 
     private fun deleteNotes(note: Notes) {

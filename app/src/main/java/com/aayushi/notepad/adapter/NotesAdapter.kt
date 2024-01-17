@@ -10,7 +10,8 @@ import com.google.android.material.snackbar.Snackbar
 
 class NotesAdapter(
     private val notes: List<Notes>,
-    private val onDeleteClickListener: (Notes) -> Unit
+    private val onDeleteClickListener: (Notes) -> Unit,
+    private val onUpdateClickListener: (Notes) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
     class NotesViewHolder(
@@ -54,6 +55,17 @@ class NotesAdapter(
                 show()
             }
         }
+
+        holder.binding.noteTitle.setOnClickListener {
+           onUpdateClickListener.invoke(note)
+        }
+
+        holder.binding.noteDescription.setOnClickListener {
+            onUpdateClickListener.invoke(note)
+        }
+
     }
+
+
 }
 
