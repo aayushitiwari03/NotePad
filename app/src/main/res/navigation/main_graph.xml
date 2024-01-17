@@ -20,11 +20,19 @@
         android:id="@+id/addFragment"
         android:name="com.aayushi.notepad.fragment.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_displayNotesFragment"
+            app:destination="@id/displayNotesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editNoteFragment"
         android:name="com.aayushi.notepad.fragment.EditNoteFragment"
         android:label="fragment_edit_note"
-        tools:layout="@layout/fragment_edit_note" />
+        tools:layout="@layout/fragment_edit_note" >
+        <action
+            android:id="@+id/action_editNoteFragment_to_displayNotesFragment"
+            app:destination="@id/displayNotesFragment" />
+    </fragment>
 
 </navigation>

@@ -1,5 +1,7 @@
 package com.aayushi.notepad.fragment
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aayushi.notepad.rdb.Notes
@@ -19,7 +21,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         getAllNotes() //this function will get all the notes from database
     }
 
-    private fun getAllNotes(){
+     fun getAllNotes(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _notes.value = noteRepository.getAllNotes().first()
@@ -29,7 +31,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         }
     }
 
-    private fun insertNote(notes: Notes){
+     fun insertNote(notes: Notes){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 noteRepository.insertNote (notes)
@@ -39,7 +41,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         }
     }
 
-    private fun updateNotes(notes: Notes){
+     fun updateNotes(notes: Notes){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 noteRepository.updateNote (notes)
@@ -49,7 +51,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         }
     }
 
-    private fun deleteNotes(notes: Notes){
+     fun deleteNotes(notes: Notes){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 noteRepository.deleteNote (notes)
@@ -59,7 +61,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         }
     }
 
-    private fun deleteAllNotes(){
+     fun deleteAllNotes(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 noteRepository.deleteAllNotes ()

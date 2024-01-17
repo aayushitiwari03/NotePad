@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "notes")
 data class Notes(
     @PrimaryKey(autoGenerate = true)    // by using primary key we can auto generate the id
-    val id: Int,
+    val id: Int=0,
     @ColumnInfo(name = "noteTitle")  // by using columnInfo we can change the name of the column
     val noteTitle:String,
     @ColumnInfo(name = "noteDescription")
