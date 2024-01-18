@@ -9,20 +9,40 @@ import com.aayushi.notepad.rdb.Notes
 import com.google.android.material.snackbar.Snackbar
 
 class NotesAdapter(
-    private val notes: List<Notes>,
+    private var notes: List<Notes>,
     private val onDeleteClickListener: (Notes) -> Unit,
-    private val onUpdateClickListener: (Notes) -> Unit
+    private val onNoteClick: (Notes) -> Unit
 ) : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
+    override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
+        val note = notes[position]
+        holder.bind(note)
 
-    class NotesViewHolder(
+        holder.binding.deleteNote.setOnClickListener {
+            onDeleteClickListener.invoke(note)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+            Snackbar.make(it, "Note Deleted", Snackbar.LENGTH_LONG).apply {
+                setAction("Undo") {
+                    //insert the note again
+                }
+                show()
+            }
+        }
+
+
+    }
+    inner class NotesViewHolder(
         val binding: NotesListBinding
     ) : RecyclerView.ViewHolder(binding.root)
     {
         fun bind(note: Notes) {
-            binding.apply {
-                noteTitle.text = note.noteTitle
-                noteDescription.text = note.note_Description
+
+            binding.noteTitle.text = note.noteTitle
+            binding.noteDescription.text = note.note_Description
+            binding.root.setOnClickListener {
+                onNoteClick.invoke(note)
             }
+
         }
 
     }
@@ -40,32 +60,11 @@ class NotesAdapter(
         return notes.size
     }
 
-    override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        val note = notes[position]
-        holder.bind(note)
 
-        holder.binding.deleteNote.setOnClickListener {
-            onDeleteClickListener.invoke(note)
-            notifyItemRemoved(position)
-            notifyDataSetChanged()
-            Snackbar.make(it, "Note Deleted", Snackbar.LENGTH_LONG).apply {
-                setAction("Undo") {
-                    //insert the note again
-                }
-                show()
-            }
-        }
-
-        holder.binding.noteTitle.setOnClickListener {
-           onUpdateClickListener.invoke(note)
-        }
-
-        holder.binding.noteDescription.setOnClickListener {
-            onUpdateClickListener.invoke(note)
-        }
-
+    fun updateData(newNotes: List<Notes>) {
+        notes = newNotes
+        notifyDataSetChanged()
     }
-
 
 }
 

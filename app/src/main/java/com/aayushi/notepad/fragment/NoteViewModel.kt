@@ -45,6 +45,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 noteRepository.updateNote (notes)
+                getAllNotes()
             }catch (e:Exception){
                 e.printStackTrace()
             }

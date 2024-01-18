@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -49,6 +50,7 @@ class AddFragment : Fragment() {
                     note_Description = binding.addNoteDescription.text.toString()
                 )
             )
+            Toast.makeText(requireContext(), "Note Saved", Toast.LENGTH_SHORT).show()
             (activity as MainActivity).findNavController(R.id.nav_host_graph)
                 .navigate(R.id.action_addFragment_to_displayNotesFragment)
         }

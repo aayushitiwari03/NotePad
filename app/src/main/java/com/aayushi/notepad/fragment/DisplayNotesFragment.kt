@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.aayushi.notepad.databinding.FragmentDisplayNotesBinding
 import com.aayushi.notepad.rdb.NoteDataBase
 import com.aayushi.notepad.rdb.Notes
 import com.aayushi.notepad.repo.NoteRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,23 +57,29 @@ class DisplayNotesFragment : Fragment() {
 
         noteViewModel = ViewModelProvider(this, noteViewModelFactory)[NoteViewModel::class.java]
 
+        adapter = NotesAdapter(
+            emptyList(),
+            onDeleteClickListener = { note -> deleteNotes(note) },
+            onNoteClick = { note -> onNoteClick(note) }
+        )
+
+        binding.recyclerView.adapter = adapter
+
         lifecycleScope.launch {
-            noteViewModel.notes.collect {
-                adapter = NotesAdapter(
-                    it,
-                    onDeleteClickListener = { note -> deleteNotes(note) },
-                    onUpdateClickListener = { note -> navigateToUpdateFragment(note) }
-                )
-                binding.recyclerView.adapter = adapter
+            noteViewModel.notes.collect { newNotes ->
+                adapter.updateData(newNotes)
             }
         }
+
 
         return binding.root
     }
 
-    private fun navigateToUpdateFragment(note: Notes) {
+    private fun onNoteClick(note: Notes){
+        val bundle = Bundle()
+        bundle.putString("note", Gson().toJson(note))
         (activity as MainActivity).findNavController(R.id.nav_host_graph)
-            .navigate(R.id.action_displayNotesFragment_to_editNoteFragment)
+            .navigate(R.id.action_displayNotesFragment_to_editNoteFragment, bundle)
     }
 
     private fun deleteNotes(note: Notes) {
