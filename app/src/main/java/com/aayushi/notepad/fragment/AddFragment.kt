@@ -44,16 +44,26 @@ class AddFragment : Fragment() {
         viewModelFactory = NotesViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[NoteViewModel::class.java]
 
+
+
         binding.saveNote.setOnClickListener {
-            viewModel.insertNote(
-                Notes(
-                    noteTitle = binding.addNoteTitle.text.toString(),
-                    note_Description = binding.addNoteDescription.text.toString()
+
+            val title =binding.addNoteTitle.text.toString()
+            val description = binding.addNoteDescription.text.toString()
+
+            if (title.isNotEmpty() && description.isNotEmpty()){
+                viewModel.insertNote(
+                    Notes(
+                        noteTitle = title,
+                        note_Description = description
+                    )
                 )
-            )
-            Toast.makeText(requireContext(), "Note Saved", Toast.LENGTH_SHORT).show()
-            (activity as MainActivity).findNavController(R.id.nav_host_graph)
-                .navigate(R.id.action_addFragment_to_displayNotesFragment)
+                Toast.makeText(requireContext(), "Note Saved", Toast.LENGTH_SHORT).show()
+                (activity as MainActivity).findNavController(R.id.nav_host_graph)
+                    .navigate(R.id.action_addFragment_to_displayNotesFragment)
+            }else{
+                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root
