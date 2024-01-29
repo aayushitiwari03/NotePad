@@ -1,7 +1,6 @@
 package com.aayushi.notepad.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.aayushi.notepad.MainActivity
-import com.aayushi.notepad.NotesViewModelFactory
+import com.aayushi.notepad.activity.MainActivity
+import com.aayushi.notepad.viewmodel.NotesViewModelFactory
 import com.aayushi.notepad.R
 import com.aayushi.notepad.databinding.FragmentEditNoteBinding
 import com.aayushi.notepad.rdb.NoteDataBase
 import com.aayushi.notepad.rdb.Notes
 import com.aayushi.notepad.repo.NoteRepository
+import com.aayushi.notepad.viewmodel.NoteViewModel
 import com.google.gson.Gson
 
 class EditNoteFragment : Fragment() {

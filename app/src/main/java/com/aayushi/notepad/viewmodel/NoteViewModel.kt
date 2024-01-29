@@ -1,7 +1,5 @@
-package com.aayushi.notepad.fragment
+package com.aayushi.notepad.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aayushi.notepad.rdb.Notes
@@ -21,7 +19,7 @@ class NoteViewModel(private val noteRepository: NoteRepository) : ViewModel(){
         getAllNotes() //this function will get all the notes from database
     }
 
-     fun getAllNotes(){
+     private fun getAllNotes(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _notes.value = noteRepository.getAllNotes().first()

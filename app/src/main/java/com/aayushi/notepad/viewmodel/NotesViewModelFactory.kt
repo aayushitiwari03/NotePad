@@ -1,8 +1,7 @@
-package com.aayushi.notepad
+package com.aayushi.notepad.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aayushi.notepad.fragment.NoteViewModel
 import com.aayushi.notepad.repo.NoteRepository
 
 class NotesViewModelFactory(private val repository: NoteRepository): ViewModelProvider.Factory {
